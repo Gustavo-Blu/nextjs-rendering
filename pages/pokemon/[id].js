@@ -1,30 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import styles from '../../styles/DetailsPage.module.css';
 
-export default function detailsPage() {
-  const [pokemon, setPokemon] = useState({});
-  const {
-    query: { id },
-  } = useRouter();
-
-  useEffect(() => {
-    const fetchSinglePokemon = async () => {
-      const res = await fetch(
-        `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${id}.json`
-      );
-      setPokemon(await res.json());
-    };
-
-    if (id) {
-      fetchSinglePokemon();
-    }
-
-    console.log('i was hit');
-  }, [id]);
-
+export default function detailsPage({ pokemon }) {
   console.log(typeof pokemon.type);
   console.log(Array(pokemon.type));
 
@@ -71,4 +49,16 @@ export default function detailsPage() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch(
+    `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${context.params.id}.json`
+  );
+
+  return {
+    props: {
+      pokemon: await res.json(),
+    },
+  };
 }
