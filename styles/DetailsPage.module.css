@@ -1,0 +1,41 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  column-gap: 2rem;
+  padding: 2rem;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.type {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.heading {
+  font-weight: bold;
+  padding: 2rem;
+  padding-bottom: 0;
+  font-size: x-large;
+}
+
+.attribute {
+  font-weight: bold;
+}
+
+.picture {
+  max-height: 400px;
+}
+
+.stats {
+  font-size: large;
+  text-align: left;
+}
+
+.column {
+  width: 160px;
+}
