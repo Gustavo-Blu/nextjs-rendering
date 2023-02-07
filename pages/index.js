@@ -29,7 +29,7 @@ export default function Home({ pokemon }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(
     'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json'
   );

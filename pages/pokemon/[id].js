@@ -51,7 +51,22 @@ export default function detailsPage({ pokemon }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticPaths() {
+  const res = await fetch(
+    'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json'
+  );
+
+  const pokemon = await res.json();
+
+  return {
+    paths: pokemon.map((pokemon) => ({
+      params: { id: pokemon.id.toString() },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
   const res = await fetch(
     `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${context.params.id}.json`
   );
@@ -60,5 +75,6 @@ export async function getServerSideProps(context) {
     props: {
       pokemon: await res.json(),
     },
+    // revalidate: 30
   };
 }
